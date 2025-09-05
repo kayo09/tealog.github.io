@@ -1,7 +1,7 @@
 title: Krutarth's Blog
 description: a text log (tealog [pun intended]) of myself
-baseurl: ""
-url: ""
+baseurl: "/tealog.github.io"
+url: "https://kayo09.github.io"
 permalink: /blog/:year/:month/:day/:title/
 theme: minima # Minimal theme to avoid conflicts, but we override with custom layout
 plugins:
