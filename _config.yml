@@ -1,0 +1,18 @@
+title: Krutarth's Blog
+description: a text log (tealog [pun intended]) of myself
+baseurl: ""
+url: ""
+theme: minima # Minimal theme to avoid conflicts, but we override with custom layout
+plugins:
+  - jekyll-feed
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: default

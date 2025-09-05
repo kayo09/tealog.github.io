@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <style>
+        body {
+            background-color: #1a1a1a; /* Dark black background */
+            color: #e0e0e0; /* Light text for contrast */
+            font-family: 'Courier New', Courier, monospace; /* Typewriter font */
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 50, 0.3), rgba(0, 0, 50, 0.3)); /* Dark blue tint overlay */
+        }
+        header {
+            background-color: #0a0a23; /* Dark blue-black header */
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2a2a5e; /* Subtle blue border */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #4a4a9e; /* Lighter blue for title */
+        }
+        nav {
+            margin: 10px 0;
+        }
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+        nav a:hover {
+            color: #4a4a9e;
+        }
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .content img, .content video {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #2a2a5e; /* Blue border for multimedia */
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #0a0a23;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            border-top: 2px solid #2a2a5e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Blog</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/blog">Blog</a>
+        </nav>
+    </header>
+    <div class="content">
+        {{ content }}
+    </div>
+    <footer>
+        <p>&copy; 2025 Krutarth's Blog. All rights reserved.</p>
+    </footer>
+</body>
+</html>
