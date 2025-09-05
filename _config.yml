@@ -2,6 +2,7 @@ title: Krutarth's Blog
 description: a text log (tealog [pun intended]) of myself
 baseurl: ""
 url: ""
+permalink: /blog/:year/:month/:day/:title/
 theme: minima # Minimal theme to avoid conflicts, but we override with custom layout
 plugins:
   - jekyll-feed
