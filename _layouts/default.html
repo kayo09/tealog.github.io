@@ -304,42 +304,38 @@
             {{ content }}
         </main>
 
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3>About This Blog</h3>
-                <p style="color: var(--apple-text-secondary); font-size: 0.95rem; line-height: 1.6;">
-                    Exploring the intersection of technology, design, and daily life through thoughtful writing.
-                </p>
-            </div>
+<aside class="sidebar">
+    <div class="sidebar-card">
+        <h3>About This Blog</h3>
+        <p style="color: var(--apple-text-secondary); font-size: 0.95rem; line-height: 1.6;">
+            Exploring the intersection of technology, design, and daily life through thoughtful writing.
+        </p>
+    </div>
 
-            <div class="sidebar-card">
-                <h3>Recent Posts</h3>
-                <ul class="recent-posts-list">
-                    <li>
-                        <a href="#">The Future of Minimalist Design</a>
-                        <div class="date">March 12, 2025</div>
-                    </li>
-                    <li>
-                        <a href="#">Why I Switched to Dark Mode</a>
-                        <div class="date">March 8, 2025</div>
-                    </li>
-                    <li>
-                        <a href="#">Building Better User Experiences</a>
-                        <div class="date">March 1, 2025</div>
-                    </li>
-                </ul>
-            </div>
+    <!-- Dynamic Recent Posts -->
+    <div class="sidebar-card">
+        <h3>Recent Posts</h3>
+        <ul class="recent-posts-list">
+            {% for post in site.posts limit:5 %}
+            <li>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-            <div class="sidebar-card">
-                <h3>Categories</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-                    <span class="tag">Design</span>
-                    <span class="tag">Tech</span>
-                    <span class="tag">Life</span>
-                    <span class="tag">Code</span>
-                </div>
-            </div>
-        </aside>
+    <!-- Dynamic Categories -->
+    <div class="sidebar-card">
+        <h3>Categories</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
+            {% assign categories = site.categories | sort %}
+            {% for category in categories %}
+            <span class="tag">{{ category[0] }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</aside>
     </div>
 
     <footer>
