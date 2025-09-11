@@ -40,24 +40,34 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Enhanced Header Styles with Scroll Behavior */
         header {
             background: linear-gradient(180deg, 
                 rgba(28, 28, 30, 0.95) 0%, 
                 rgba(12, 12, 14, 0.98) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
             border-bottom: 1px solid var(--apple-border);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform: translateY(0);
+        }
+
+        /* Hidden state */
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         header h1 {
             margin: 0;
             font-family: var(--font-display);
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
             background: linear-gradient(90deg, #ffffff 0%, #a0a0a0 100%);
             -webkit-background-clip: text;
@@ -67,18 +77,18 @@
         }
 
         nav {
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         nav a {
             color: var(--apple-text-secondary);
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0 15px;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
             position: relative;
-            padding: 8px 0;
+            padding: 6px 0;
         }
 
         nav a:hover {
@@ -101,10 +111,11 @@
             width: 100%;
         }
 
+        /* Main content needs padding to account for fixed header */
         .container {
             display: flex;
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 100px auto 40px; /* Added top margin for header */
             padding: 0 20px;
             gap: 30px;
         }
@@ -264,15 +275,16 @@
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
+                margin-top: 80px; /* Adjusted for mobile */
             }
             
             header h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
             }
             
             nav a {
-                margin: 0 12px;
-                font-size: 1rem;
+                margin: 0 10px;
+                font-size: 0.9rem;
             }
             
             .main-content {
@@ -287,7 +299,7 @@
     </style>
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <h1>{{ site.title }}</h1>
         <nav>
             <a href="{{ '/' | relative_url }}">Home</a>
@@ -365,5 +377,26 @@
             Designed following Apple's Human Interface Guidelines
         </p>
     </footer>
+
+    <!-- Scroll Detection JavaScript -->
+    <script>
+        let lastScrollTop = 0;
+        const header = document.getElementById('main-header');
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Hide header when scrolling down, show when scrolling up
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down & past 100px
+                header.classList.add('hidden');
+            } else {
+                // Scrolling up
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
 </body>
 </html>
