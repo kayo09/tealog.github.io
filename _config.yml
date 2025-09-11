@@ -1,19 +1,54 @@
-title: Krutarth's Blog
-description: a text log (tealog [pun intended]) of myself
+# title: Krutarth's Blog
+# description: a text log (tealog [pun intended]) of myself
+# baseurl: "/tealog.github.io"
+# url: "https://kayo09.github.io"
+# permalink: /blog/:year/:month/:day/:title/
+# theme: minima # Minimal theme to avoid conflicts, but we override with custom layout
+# plugins:
+#   - jekyll-feed
+# defaults:
+#   - scope:
+#       path: ""
+#       type: pages
+#     values:
+#       layout: default
+#   - scope:
+#       path: ""
+#       type: posts
+#     values:
+#       layout: default
+title: My B-log
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Kay's personal blog about technology, design, and tea.
 baseurl: "/tealog.github.io"
 url: "https://kayo09.github.io"
-permalink: /blog/:year/:month/:day/:title/
-theme: minima # Minimal theme to avoid conflicts, but we override with custom layout
+# Build settings
+theme: null
 plugins:
   - jekyll-feed
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Defaults
 defaults:
   - scope:
       path: ""
-      type: pages
+      type: "posts"
     values:
-      layout: default
+      layout: "default"
   - scope:
       path: ""
-      type: posts
     values:
-      layout: default
+      layout: "default"
