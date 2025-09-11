@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
+    <title>{{ page.title }} - {{ site.title }}</title>
     <style>
         :root {
             /* Apple-inspired dark theme */
@@ -187,7 +187,9 @@
             font-size: 0.95rem;
             margin-bottom: 25px;
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            align-items: center;
         }
 
         .tag {
@@ -198,13 +200,16 @@
             border-radius: 20px;
             font-size: 0.85rem;
             margin-right: 8px;
+            margin-bottom: 8px;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .tag:hover {
             background: var(--apple-accent-blue);
-            color: white;
+            color: white !important;
             transform: scale(1.05);
+            text-decoration: none;
         }
 
         footer {
@@ -283,63 +288,79 @@
 </head>
 <body>
     <header>
-        <h1>My B-log</h1>
+        <h1>{{ site.title }}</h1>
         <nav>
-            <a href="{{ site.baseurl }}/">Home</a>
-            <a href="{{ site.baseurl }}/about.html">About</a>
-            <a href="{{ site.baseurl }}/blog/">Tealog</a>
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/about.html' | relative_url }}">About</a>
+            <a href="{{ '/blog/' | relative_url }}">Tealog</a>
+            <a href="{{ '/tags.html' | relative_url }}">Tags</a>
         </nav>
     </header>
 
     <div class="container">
         <main class="main-content">
+            {% if page.date %}
             <div class="post-meta">
-                <span>📅 March 15, 2025</span>
-                <span>⏱️ 5 min read</span>
+                <span>📅 {{ page.date | date: "%B %d, %Y" }}</span>
+                {% if page.categories %}
                 <div>
-                    <span class="tag">Technology</span>
-                    <span class="tag">Design</span>
+                    {% for category in page.categories %}
+                    <span class="tag">{{ category }}</span>
+                    {% endfor %}
                 </div>
+                {% endif %}
+                {% if page.tags %}
+                <div>
+                    {% for tag in page.tags %}
+                    <a href="{{ '/tags.html#' | append: tag | relative_url }}" class="tag">
+                        {{ tag }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
+            {% endif %}
             {{ content }}
         </main>
 
-<aside class="sidebar">
-    <div class="sidebar-card">
-        <h3>About This Blog</h3>
-        <p style="color: var(--apple-text-secondary); font-size: 0.95rem; line-height: 1.6;">
-            Exploring the intersection of technology, design, and daily life through thoughtful writing.
-        </p>
-    </div>
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3>About This Blog</h3>
+                <p style="color: var(--apple-text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Exploring the intersection of technology, design, and daily life through thoughtful writing.
+                </p>
+            </div>
 
-    <!-- Dynamic Recent Posts -->
-    <div class="sidebar-card">
-        <h3>Recent Posts</h3>
-        <ul class="recent-posts-list">
-            {% for post in site.posts limit:5 %}
-            <li>
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+            <!-- Dynamic Recent Posts -->
+            <div class="sidebar-card">
+                <h3>Recent Posts</h3>
+                <ul class="recent-posts-list">
+                    {% for post in site.posts limit:5 %}
+                    <li>
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-    <!-- Dynamic Categories -->
-    <div class="sidebar-card">
-        <h3>Categories</h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-            {% assign categories = site.categories | sort %}
-            {% for category in categories %}
-            <span class="tag">{{ category[0] }}</span>
-            {% endfor %}
-        </div>
-    </div>
-</aside>
+            <!-- Dynamic Tags -->
+            <div class="sidebar-card">
+                <h3>Popular Tags</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
+                    {% assign sorted_tags = site.tags | sort %}
+                    {% for tag in sorted_tags %}
+                    <a href="{{ '/tags.html#' | append: tag[0] | relative_url }}" class="tag">
+                        {{ tag[0] }} ({{ tag[1].size }})
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
     </div>
 
     <footer>
-        <p>&copy; 2025 Kay's Tealog. Crafted with attention to detail.</p>
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. Crafted with attention to detail.</p>
         <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.7;">
             Designed following Apple's Human Interface Guidelines
         </p>
